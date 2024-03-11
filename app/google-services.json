@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "307922875632",
+    "project_id": "wikitarkov",
+    "storage_bucket": "wikitarkov.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307922875632:android:f8b023f4df0494a8077e35",
+        "android_client_info": {
+          "package_name": "com.raulgarcan.wikitarkov"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhUxlLkkwtcJHXHW3X5QVoo0sApgQZCu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
