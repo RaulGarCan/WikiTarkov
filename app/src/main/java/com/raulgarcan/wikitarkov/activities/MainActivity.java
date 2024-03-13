@@ -4,12 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
+import com.raulgarcan.wikitarkov.pojo.Ammo;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
@@ -37,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
+
+        //addAmmoDB();
+
+        Spinner sp = findViewById(R.id.sp_test_ammo);
+        FirebaseHelper helper = new FirebaseHelper();
+        ArrayList<Ammo> ammoList = helper.getAmmoDB("pistol","762x25");
+        String[] ammosName = new String[ammoList.size()];
+        for(int i = 0; i<ammoList.size(); i++){
+            ammosName[i] = ammoList.get(i).getCaliber()+" "+ammoList.get(i).getLongName();
+            Log.d("AmmoElement",ammoList.get(i).toString());
+        }
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ammosName);
+        sp.setAdapter(adapter);
     }
     private void logIn(){
         String email = etEmail.getText().toString().trim().replaceAll(" ","");
@@ -83,5 +102,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+    private void addAmmoDB(){
+        long[] penPerTier = {6,6,4,1,0,0};
+        Ammo ammo = new Ammo(7,"7.62x25mm","TT Pst gzh","Pst",50d,
+                25d,36d,0d,0d,20d,0d,0d,430d);
+        ammo.setPenPerTier(penPerTier);
+        FirebaseHelper helper = new FirebaseHelper();
+        helper.addAmmo(ammo, "pistol","762x25");
     }
 }

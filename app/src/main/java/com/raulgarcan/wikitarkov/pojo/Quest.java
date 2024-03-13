@@ -2,7 +2,9 @@ package com.raulgarcan.wikitarkov.pojo;
 
 import com.raulgarcan.wikitarkov.pojo.enums.Trader;
 
-public class Quest {
+import java.io.Serializable;
+
+public class Quest implements Serializable {
     private String name;
     private Trader trader;
     private boolean isCompleted;

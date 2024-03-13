@@ -44,6 +44,10 @@
                     android:text="Sign Up"/>
             </LinearLayout>
         </LinearLayout>
+        <Spinner
+            android:id="@+id/sp_test_ammo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </LinearLayout>

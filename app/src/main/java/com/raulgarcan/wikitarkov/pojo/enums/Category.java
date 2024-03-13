@@ -1,6 +1,8 @@
 package com.raulgarcan.wikitarkov.pojo.enums;
 
-public enum Category {
+import java.io.Serializable;
+
+public enum Category implements Serializable {
     ELECTRONICS,
     BUILDING,
     WPARTS,

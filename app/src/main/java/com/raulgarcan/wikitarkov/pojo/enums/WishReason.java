@@ -1,6 +1,8 @@
 package com.raulgarcan.wikitarkov.pojo.enums;
 
-public enum WishReason {
+import java.io.Serializable;
+
+public enum WishReason implements Serializable {
     HIDEOUT,
     MONEY,
     QUEST,

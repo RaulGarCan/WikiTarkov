@@ -1,6 +1,8 @@
 package com.raulgarcan.wikitarkov.pojo.enums;
 
-public enum Trader {
+import java.io.Serializable;
+
+public enum Trader implements Serializable {
     PRAPOR,
     THERAPIST,
     FENCE,

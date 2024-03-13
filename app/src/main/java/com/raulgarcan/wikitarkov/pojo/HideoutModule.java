@@ -1,6 +1,8 @@
 package com.raulgarcan.wikitarkov.pojo;
 
-public class HideoutModule {
+import java.io.Serializable;
+
+public class HideoutModule implements Serializable {
     private String name;
     private Item[] neededItems;
     private int level;

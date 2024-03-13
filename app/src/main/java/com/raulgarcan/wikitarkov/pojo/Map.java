@@ -1,6 +1,8 @@
 package com.raulgarcan.wikitarkov.pojo;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable {
     private String name;
     private byte[] image;
 

@@ -12,7 +12,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.raulgarcan.wikitarkov.pojo.Ammo;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class FirebaseHelper {
     private final FirebaseAuth auth;
@@ -63,5 +74,45 @@ public class FirebaseHelper {
     private void saveCurrentUser(Activity activity){
         SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
         preferences.edit().putString("CurrentUser",auth.getCurrentUser().getUid()).apply();
+    }
+    public void addAmmo(Ammo ammo, String ammoType, String caliber){
+        firestore.collection("ammo").document(ammoType).collection(caliber).add(ammo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()){
+                    Log.d("AddAmmo","Successful!");
+                }
+            }
+        });
+    }
+    public ArrayList<Ammo> getAmmoDB(String ammoType, String caliber){
+        ArrayList<Ammo> ammoList = new ArrayList<>();
+        firestore.collection("ammo").document(ammoType).collection(caliber).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot query = task.getResult();
+                    if(!query.isEmpty()){
+                        List<DocumentSnapshot> documents = query.getDocuments();
+                        for(DocumentSnapshot doc : documents){
+                            try {
+                                Ammo ammo = (Ammo)doc.getData();
+                                ammoList.add(ammo);
+                                Log.d("No Excepcion",ammo.toString());
+                            } catch (ClassCastException e){
+                                Ammo ammo = new Ammo((HashMap<String, Object>) doc.getData());
+                                ammoList.add(ammo);
+                                Log.d("Excepcion",e+" "+ammo);
+                            }
+                        }
+                    } else {
+                        Log.w("Collection Status","Not found");
+                    }
+                }
+                Log.d("AmmoList",ammoList.toString());
+            }
+        });
+        Log.d("AmmoListReturn", ammoList.toString());
+        return ammoList;
     }
 }

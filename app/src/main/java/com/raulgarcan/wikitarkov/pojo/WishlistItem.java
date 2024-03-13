@@ -2,7 +2,9 @@ package com.raulgarcan.wikitarkov.pojo;
 
 import com.raulgarcan.wikitarkov.pojo.enums.WishReason;
 
-public class WishlistItem {
+import java.io.Serializable;
+
+public class WishlistItem implements Serializable {
     private Item item;
     private WishReason wishReason;
     private String wishDescription;

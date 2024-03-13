@@ -2,7 +2,9 @@ package com.raulgarcan.wikitarkov.pojo;
 
 import com.raulgarcan.wikitarkov.pojo.enums.Category;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String longName;
     private String shortName;
     private Category category;
