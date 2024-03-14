@@ -2,8 +2,12 @@ package com.raulgarcan.wikitarkov;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,14 +20,18 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.raulgarcan.wikitarkov.activities.HomeActivity;
+import com.raulgarcan.wikitarkov.activities.MainActivity;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
 
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class FirebaseHelper {
     private final FirebaseAuth auth;
@@ -41,14 +49,28 @@ public class FirebaseHelper {
     public FirebaseFirestore getFirestore() {
         return firestore;
     }
-    public void signUp(String email, String password){
+    public void signUp(String email, String password, HashMap<String, Object> data, Activity activity){
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.d("SignUp Status","Successful");
+                    saveAditionalSignUpData(data, auth.getCurrentUser().getUid(), activity);
                 } else {
                     Log.w("SignUp Status","Error");
+                }
+            }
+        });
+    }
+    private void saveAditionalSignUpData(HashMap<String, Object> data, String userID, Activity activity){
+        firestore.collection("user").document(userID).set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    activity.startActivity(new Intent(activity, MainActivity.class));
+                    Toast.makeText(activity,"Data saved successfully",Toast.LENGTH_LONG).show();
+                } else {
+
                 }
             }
         });
@@ -60,7 +82,9 @@ public class FirebaseHelper {
                 if (task.isSuccessful()){
                     Log.d("LogIn Status", "Successful");
                     saveCurrentUser(currentActivity);
+                    currentActivity.startActivity(new Intent(currentActivity, HomeActivity.class));
                 } else {
+                    Toast.makeText(currentActivity, "User not found",Toast.LENGTH_SHORT).show();
                     Log.w("LogIn Status","Error");
                 }
             }
@@ -85,7 +109,7 @@ public class FirebaseHelper {
             }
         });
     }
-    public ArrayList<Ammo> getAmmoDB(String ammoType, String caliber){
+    public void getAmmoDB(String ammoType, String caliber, Spinner sp, Activity activity){
         ArrayList<Ammo> ammoList = new ArrayList<>();
         firestore.collection("ammo").document(ammoType).collection(caliber).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -105,6 +129,8 @@ public class FirebaseHelper {
                                 Log.d("Excepcion",e+" "+ammo);
                             }
                         }
+                        sortList(ammoList);
+                        fillComponent(sp, activity, ammoList);
                     } else {
                         Log.w("Collection Status","Not found");
                     }
@@ -113,6 +139,22 @@ public class FirebaseHelper {
             }
         });
         Log.d("AmmoListReturn", ammoList.toString());
-        return ammoList;
+    }
+    private void sortList(ArrayList<Ammo> ammoList){
+        ammoList.sort(new Comparator<Ammo>() {
+            @Override
+            public int compare(Ammo o1, Ammo o2) {
+                return new Integer(o1.getAaId()).compareTo(o2.getAaId());
+            }
+        });
+    }
+    private void fillComponent(Spinner sp, Activity activity, ArrayList<Ammo> ammoList){
+        String[] ammosName = new String[ammoList.size()];
+        for(int i = 0; i<ammoList.size(); i++){
+            ammosName[i] = ammoList.get(i).getCaliber()+" "+ammoList.get(i).getLongName();
+            Log.d("AmmoElement",ammoList.get(i).toString());
+        }
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, ammosName);
+        sp.setAdapter(adapter);
     }
 }

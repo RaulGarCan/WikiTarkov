@@ -181,6 +181,14 @@ public class Ammo implements Serializable {
         }
     }
 
+    public int getAaId() {
+        return aaId;
+    }
+
+    public void setAaId(int aaId) {
+        this.aaId = aaId;
+    }
+
     @Override
     public String toString() {
         return "Ammo{" +
