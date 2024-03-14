@@ -90,10 +90,12 @@ public class FirebaseHelper {
             }
         });
     }
-    public void signOut(Activity currentActivity){
+    public void logOut(Activity currentActivity){
         auth.signOut();
         SharedPreferences preferences = currentActivity.getPreferences(Context.MODE_PRIVATE);
         preferences.edit().remove("CurrentUser").apply();
+        currentActivity.startActivity(new Intent(currentActivity, MainActivity.class));
+        Toast.makeText(currentActivity, "Logged Out",Toast.LENGTH_SHORT).show();
     }
     private void saveCurrentUser(Activity activity){
         SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);

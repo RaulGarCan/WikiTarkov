@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">WikiTarkov</string>
+    <string name="nav_open">NavOpen</string>
+    <string name="nav_close">NavClose</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- activity_sign_up.xml -->
+    <string name="et_email_sign_up_hint">Email</string>
+    <string name="et_password_sign_up_password_hint">Password</string>
+    <string name="et_field1_sign_up_hint">Field1</string>
+    <string name="et_field2_sign_up_hint">Field2</string>
+    <string name="et_field3_sign_up_hint">Field3</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <!-- activity_main.xml -->
+    <string name="btn_login">Email</string>
 </resources>

@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-        String currentUser = preferences.getString("CurrentUser",null);
-        if(currentUser!=null){
+        String currentUser = preferences.getString("CurrentUser","");
+        if(currentUser.isEmpty()){
             startActivity(new Intent(this, HomeActivity.class));
         }
         etEmail = findViewById(R.id.et_email_login);
