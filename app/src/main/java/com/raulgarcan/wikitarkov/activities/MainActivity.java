@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
         return !email.isEmpty() && !password.isEmpty();
     }
     private void addAmmoDB(){
-        long[] penPerTier = {6,6,4,1,0,0};
-        Ammo ammo = new Ammo(7,"7.62x25mm","TT Pst gzh","Pst",50d,
-                25d,36d,0d,0d,20d,0d,0d,430d);
+        long[] penPerTier = {0,0,0,0,0,0};
+        Ammo ammo = new Ammo(1,"9x19mm","RIP","RIP",102d,
+                2d,11d,0d,5d,100d,30d,10d,381d);
         ammo.setPenPerTier(penPerTier);
         FirebaseHelper helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pistol","762x25");
+        helper.addAmmo(ammo, "pistol","9x19");
     }
 }
