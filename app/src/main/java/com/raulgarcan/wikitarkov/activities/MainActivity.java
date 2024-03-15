@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //addAmmoDB();
+        addAmmoDB();
 
         //Spinner sp = findViewById(R.id.sp_test_ammo);
         //FirebaseHelper helper = new FirebaseHelper();
@@ -75,11 +75,15 @@ public class MainActivity extends AppCompatActivity {
         return !email.isEmpty() && !password.isEmpty();
     }
     private void addAmmoDB(){
-        long[] penPerTier = {0,0,0,0,0,0};
-        Ammo ammo = new Ammo(1,"9x19mm","RIP","RIP",102d,
-                2d,11d,0d,5d,100d,30d,10d,381d);
+        long[] penPerTier = {6,6,6,6,4,3};
+        Ammo ammo = new Ammo(6,"9x21mm","7N42 \"Zubilo\"","7N42",45d,
+                38d,47d,-3d,10d,10d,0d,0d,400d);
         ammo.setPenPerTier(penPerTier);
         FirebaseHelper helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pistol","9x19");
+        // *Pistols until 45acp
+        // PWD until 5.7x28
+        // Rifle until 12.7x55
+        // Shotgun until 23x75
+        helper.addAmmo(ammo, "pistol","9x21");
     }
 }
