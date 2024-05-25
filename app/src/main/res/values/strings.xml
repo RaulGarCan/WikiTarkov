@@ -11,6 +11,7 @@
     <string name="et_field2_sign_up_hint">Field2</string>
     <string name="et_field3_sign_up_hint">Field3</string>
     <string name="btn_sign_up">Sign Up</string>
+    <string name="btn_signup_goback">Go Back</string>
     <!-- activity_main.xml -->
-    <string name="btn_login">Email</string>
+    <string name="btn_login">Log In</string>
 </resources>

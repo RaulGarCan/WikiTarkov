@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addAmmoDB();
+        //addAmmoDB();
 
         //Spinner sp = findViewById(R.id.sp_test_ammo);
         //FirebaseHelper helper = new FirebaseHelper();
@@ -75,15 +75,40 @@ public class MainActivity extends AppCompatActivity {
         return !email.isEmpty() && !password.isEmpty();
     }
     private void addAmmoDB(){
-        long[] penPerTier = {6,6,6,6,4,3};
-        Ammo ammo = new Ammo(6,"9x21mm","7N42 \"Zubilo\"","7N42",45d,
-                38d,47d,-3d,10d,10d,0d,0d,400d);
+        long[] penPerTier = {6,5,1,0,0,0};
+        Ammo ammo = new Ammo(1,"46x30mm","Action SX","Action SX",65d,
+                18d,28d,0d,0d,0d,0d,690d);
         ammo.setPenPerTier(penPerTier);
         FirebaseHelper helper = new FirebaseHelper();
-        // *Pistols until 45acp
-        // PWD until 5.7x28
-        // Rifle until 12.7x55
-        // Shotgun until 23x75
-        helper.addAmmo(ammo, "pistol","9x21");
+        helper.addAmmo(ammo, "pwd","46x30mm");
+
+        penPerTier = new long[]{6, 6, 3, 0, 0, 0};
+        ammo = new Ammo(2, "46x30mm", "Subsonic SX", "Subsonic SX", 52d,
+                23d, 33d, 10d, -22d, 0d, 0d, 290d);
+        ammo.setPenPerTier(penPerTier);
+        helper = new FirebaseHelper();
+        helper.addAmmo(ammo, "pwd","46x30mm");
+
+        penPerTier = new long[]{6, 6, 6, 4, 2, 1};
+        ammo = new Ammo(3, "46x30mm", "JSP SX", "JSP SX", 46d,
+                32d, 37d, 0d, 0d, 0d, 0d, 579d);
+        ammo.setPenPerTier(penPerTier);
+        helper = new FirebaseHelper();
+        helper.addAmmo(ammo, "pwd","46x30mm");
+
+        penPerTier = new long[]{6, 6, 6, 6, 4, 3};
+        ammo = new Ammo(4, "46x30mm", "FMJ SX", "FMJ SX", 43d,
+                40d, 41d, 0d, 0d, 0d, 0d, 620d);
+        ammo.setPenPerTier(penPerTier);
+        helper = new FirebaseHelper();
+        helper.addAmmo(ammo, "pwd","46x30mm");
+
+        penPerTier = new long[]{6, 6, 6, 6, 6, 5};
+        ammo = new Ammo(5, "46x30mm", "AP SX", "AP SX", 35d,
+                53d, 46d, 0d, 10d, 0d, 0d, 680d);
+        ammo.setPenPerTier(penPerTier);
+        helper = new FirebaseHelper();
+        helper.addAmmo(ammo, "pwd","46x30mm");
+
     }
 }

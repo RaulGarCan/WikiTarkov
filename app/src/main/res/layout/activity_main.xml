@@ -18,12 +18,14 @@
             android:gravity="center">
             <EditText
                 android:id="@+id/et_email_login"
+                android:text="1@gmail.com"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/et_email_sign_up_hint"/>
             <EditText
                 android:id="@+id/et_password_login"
+                android:text="Raulius2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"

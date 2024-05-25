@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="rv_background">#BBBBBB</color>
+
+    <color name="pen0">#5b1314</color>
+    <color name="pen1">#701b1b</color>
+    <color name="pen2">#783809</color>
+    <color name="pen3">#583502</color>
+    <color name="pen4">#7f4f08</color>
+    <color name="pen5">#013301</color>
+    <color name="pen6">#014e01</color>
 </resources>

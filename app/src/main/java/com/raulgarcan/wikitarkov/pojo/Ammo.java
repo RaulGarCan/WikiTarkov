@@ -16,13 +16,12 @@ public class Ammo implements Serializable {
     private double armorDmg;
     private double accuracy;
     private double recoil;
-    private double fragChance;
     private double lightBleedPercent;
     private double heavyBleedPercent;
     private double speed;
     private ArrayList<Long> penPerTier;
 
-    public Ammo(int aaId, String caliber, String longName, String shortName, double dmg, double pen, double armorDmg, double accuracy, double recoil, double fragChance, double lightBleedPercent, double heavyBleedPercent, double speed) {
+    public Ammo(int aaId, String caliber, String longName, String shortName, double dmg, double pen, double armorDmg, double accuracy, double recoil, double lightBleedPercent, double heavyBleedPercent, double speed) {
         this.aaId = aaId;
         this.caliber = caliber;
         this.longName = longName;
@@ -32,7 +31,6 @@ public class Ammo implements Serializable {
         this.armorDmg = armorDmg;
         this.accuracy = accuracy;
         this.recoil = recoil;
-        this.fragChance = fragChance;
         this.lightBleedPercent = lightBleedPercent;
         this.heavyBleedPercent = heavyBleedPercent;
         this.speed = speed;
@@ -48,7 +46,6 @@ public class Ammo implements Serializable {
         this.armorDmg = source.armorDmg;
         this.accuracy = source.accuracy;
         this.recoil = source.recoil;
-        this.fragChance = source.fragChance;
         this.lightBleedPercent = source.lightBleedPercent;
         this.heavyBleedPercent = source.heavyBleedPercent;
         this.speed = source.speed;
@@ -64,7 +61,6 @@ public class Ammo implements Serializable {
         this.armorDmg = Double.valueOf(mapa.get("armorDmg").toString());
         this.accuracy = Double.valueOf(mapa.get("accuracy").toString());
         this.recoil = Double.valueOf(mapa.get("recoil").toString());
-        this.fragChance = Double.valueOf(mapa.get("fragChance").toString());
         this.lightBleedPercent = Double.valueOf(mapa.get("lightBleedPercent").toString());
         this.heavyBleedPercent = Double.valueOf(mapa.get("heavyBleedPercent").toString());
         this.speed = Double.valueOf(mapa.get("speed").toString());
@@ -135,14 +131,6 @@ public class Ammo implements Serializable {
         this.recoil = recoil;
     }
 
-    public double getFragChance() {
-        return fragChance;
-    }
-
-    public void setFragChance(double fragChance) {
-        this.fragChance = fragChance;
-    }
-
     public double getLightBleedPercent() {
         return lightBleedPercent;
     }
@@ -200,7 +188,6 @@ public class Ammo implements Serializable {
                 ", armorDmg=" + armorDmg +
                 ", accuracy=" + accuracy +
                 ", recoil=" + recoil +
-                ", fragChance=" + fragChance +
                 ", lightBleedPercent=" + lightBleedPercent +
                 ", heavyBleedPercent=" + heavyBleedPercent +
                 ", speed=" + speed +

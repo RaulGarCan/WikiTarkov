@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private Button btnSignUp;
+    private Button btnSignUp, btnGoback;
     private EditText etEmail, etPassword, etField1, etField2, etField3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
         etField2 = findViewById(R.id.et_field2_signup);
         etField3 = findViewById(R.id.et_field3_signup);
         btnSignUp = findViewById(R.id.btn_signup);
+        btnGoback = findViewById(R.id.btn_signup_goback);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,13 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(SignUpActivity.this, errorMsg.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnGoback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
             }
         });
     }

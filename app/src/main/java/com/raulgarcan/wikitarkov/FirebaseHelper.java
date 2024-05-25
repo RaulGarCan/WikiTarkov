@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.raulgarcan.wikitarkov.activities.HomeActivity;
 import com.raulgarcan.wikitarkov.activities.MainActivity;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
+import com.raulgarcan.wikitarkov.recyclers.AmmoAdapter;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -111,7 +113,7 @@ public class FirebaseHelper {
             }
         });
     }
-    public void getAmmoDB(String ammoType, String caliber, Spinner sp, Activity activity){
+    public void getAmmoDB(String ammoType, String caliber, RecyclerView rv){
         ArrayList<Ammo> ammoList = new ArrayList<>();
         firestore.collection("ammo").document(ammoType).collection(caliber).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -132,7 +134,7 @@ public class FirebaseHelper {
                             }
                         }
                         sortList(ammoList);
-                        fillComponent(sp, activity, ammoList);
+                        fillComponent(rv, ammoList);
                     } else {
                         Log.w("Collection Status","Not found");
                     }
@@ -150,13 +152,13 @@ public class FirebaseHelper {
             }
         });
     }
-    private void fillComponent(Spinner sp, Activity activity, ArrayList<Ammo> ammoList){
+    private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList){
         String[] ammosName = new String[ammoList.size()];
         for(int i = 0; i<ammoList.size(); i++){
             ammosName[i] = ammoList.get(i).getCaliber()+" "+ammoList.get(i).getLongName();
             Log.d("AmmoElement",ammoList.get(i).toString());
         }
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, ammosName);
-        sp.setAdapter(adapter);
+        rv.setAdapter(new AmmoAdapter(ammoList));
+        rv.getAdapter().notifyDataSetChanged();
     }
 }

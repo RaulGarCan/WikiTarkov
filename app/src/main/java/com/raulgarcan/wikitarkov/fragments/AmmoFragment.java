@@ -3,12 +3,25 @@ package com.raulgarcan.wikitarkov.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
+import com.raulgarcan.wikitarkov.activities.HomeActivity;
+import com.raulgarcan.wikitarkov.activities.MainActivity;
+import com.raulgarcan.wikitarkov.pojo.enums.Caliber;
+import com.raulgarcan.wikitarkov.pojo.enums.Guns;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,16 +29,6 @@ import com.raulgarcan.wikitarkov.R;
  * create an instance of this fragment.
  */
 public class AmmoFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AmmoFragment() {
         // Required empty public constructor
     }
@@ -34,16 +37,12 @@ public class AmmoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AmmoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AmmoFragment newInstance(String param1, String param2) {
+    public static AmmoFragment newInstance() {
         AmmoFragment fragment = new AmmoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +50,66 @@ public class AmmoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ammo, container, false);
+        View v = inflater.inflate(R.layout.fragment_ammo, container, false);
+        Spinner spGuns = v.findViewById(R.id.sp_guns_type);
+        Spinner spCalibers = v.findViewById(R.id.sp_ammo_caliber);
+        RecyclerView rvAmmoList = v.findViewById(R.id.rv_ammo_list);
+        rvAmmoList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        String[] gunsName = new String[Guns.values().length];
+        Guns[] guns = Guns.values();
+        for(int i = 0; i<guns.length; i++){
+            gunsName[i] = guns[i].getDisplayName();
+        }
+        spGuns.setAdapter(new ArrayAdapter<CharSequence>(this.getContext(), android.R.layout.simple_spinner_dropdown_item,gunsName));
+        spGuns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ArrayList<String> ammoCaliberList = getAmmoCaliberList(Guns.getGunByName(spGuns.getAdapter().getItem(position).toString()));
+                String[] calibers = new String[ammoCaliberList.size()];
+                for(int i = 0; i<ammoCaliberList.size(); i++){
+                    calibers[i] = ammoCaliberList.get(i);
+                }
+                spCalibers.setAdapter(new ArrayAdapter<CharSequence>(AmmoFragment.this.getContext(), android.R.layout.simple_spinner_dropdown_item,calibers));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spCalibers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fillRecyclerView(rvAmmoList,Caliber.getCaliberByName(spCalibers.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spGuns.setSelection(spGuns.getAdapter().getCount()-1);
+        return v;
+    }
+    private ArrayList<String> getAmmoCaliberList(Guns selectedGun){
+        ArrayList<String> ammoCaliberList = new ArrayList<>();
+        for(Caliber c : Caliber.values()){
+            if(c.getGunType().equals(selectedGun) || selectedGun.equals(Guns.ALL)){
+                ammoCaliberList.add(c.getDisplayName());
+            }
+        }
+        return ammoCaliberList;
+    }
+    private void fillRecyclerView(RecyclerView rv, Caliber caliber){
+        FirebaseHelper helper = new FirebaseHelper();
+        Log.d("GetAmmoDB",caliber.getGunType().name().toLowerCase()+" "+caliber.getDbName());
+        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getDbName(), rv);
     }
 }

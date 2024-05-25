@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.home_navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        DefaultFragment defaultFragment = new DefaultFragment();
+        AmmoFragment defaultFragment = new AmmoFragment();
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_fragments,defaultFragment).commit();
