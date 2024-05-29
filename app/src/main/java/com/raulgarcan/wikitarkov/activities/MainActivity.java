@@ -1,5 +1,6 @@
 package com.raulgarcan.wikitarkov.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,18 +9,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
+import com.raulgarcan.wikitarkov.pojo.enums.Caliber;
+import com.raulgarcan.wikitarkov.data.Main;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
 import com.raulgarcan.wikitarkov.pojo.ErrorMsg;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
@@ -53,11 +57,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //addAmmoDB();
-
-        //Spinner sp = findViewById(R.id.sp_test_ammo);
-        //FirebaseHelper helper = new FirebaseHelper();
-        //helper.getAmmoDB("pistol","762x25",sp,this);
+        //saveDataOnDB();
+    }
+    private void saveDataOnDB(){
+        FirebaseHelper helper = new FirebaseHelper();
+        FirebaseFirestore db = helper.getFirestore();
+        Caliber[] calibers = Caliber.values();
+        for(Caliber c : calibers){
+            String json = Main.leerJsonAndroid("Caliber"+c.getDisplayName());
+            Ammo[] ammoList = new Gson().fromJson(json,Ammo[].class);
+            for(Ammo a : ammoList){
+                db.collection("ammo").document(c.getGunType().name().toLowerCase()).collection(c.getDisplayName()).add(a).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if(task.isSuccessful()){
+                            Log.d("AmmoDataDB","Data Save Successful");
+                        } else {
+                            Log.w("AmmoDataDB",task.getException());
+                        }
+                    }
+                });
+            }
+        }
     }
     private void logIn(){
         String email = etEmail.getText().toString().trim().replaceAll(" ","");
@@ -70,45 +91,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, errorMsg.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
-    private boolean checkFieldsLogIn(String email, String password, ErrorMsg errorMsg){
+    private boolean checkFieldsLogIn(String email, String password, ErrorMsg errorMsg) {
         errorMsg.setMessage("Fill all the fields");
         return !email.isEmpty() && !password.isEmpty();
-    }
-    private void addAmmoDB(){
-        long[] penPerTier = {6,5,1,0,0,0};
-        Ammo ammo = new Ammo(1,"46x30mm","Action SX","Action SX",65d,
-                18d,28d,0d,0d,0d,0d,690d);
-        ammo.setPenPerTier(penPerTier);
-        FirebaseHelper helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pwd","46x30mm");
-
-        penPerTier = new long[]{6, 6, 3, 0, 0, 0};
-        ammo = new Ammo(2, "46x30mm", "Subsonic SX", "Subsonic SX", 52d,
-                23d, 33d, 10d, -22d, 0d, 0d, 290d);
-        ammo.setPenPerTier(penPerTier);
-        helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pwd","46x30mm");
-
-        penPerTier = new long[]{6, 6, 6, 4, 2, 1};
-        ammo = new Ammo(3, "46x30mm", "JSP SX", "JSP SX", 46d,
-                32d, 37d, 0d, 0d, 0d, 0d, 579d);
-        ammo.setPenPerTier(penPerTier);
-        helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pwd","46x30mm");
-
-        penPerTier = new long[]{6, 6, 6, 6, 4, 3};
-        ammo = new Ammo(4, "46x30mm", "FMJ SX", "FMJ SX", 43d,
-                40d, 41d, 0d, 0d, 0d, 0d, 620d);
-        ammo.setPenPerTier(penPerTier);
-        helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pwd","46x30mm");
-
-        penPerTier = new long[]{6, 6, 6, 6, 6, 5};
-        ammo = new Ammo(5, "46x30mm", "AP SX", "AP SX", 35d,
-                53d, 46d, 0d, 10d, 0d, 0d, 680d);
-        ammo.setPenPerTier(penPerTier);
-        helper = new FirebaseHelper();
-        helper.addAmmo(ammo, "pwd","46x30mm");
-
     }
 }

@@ -1,12 +1,6 @@
-package com.raulgarcan.wikitarkov.pojo;
+package com.raulgarcan.wikitarkov.data;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-
-public class Ammo implements Serializable {
+public class AmmoDef {
     private String caliber;
     private int damage;
     private int penetrationPower;
@@ -24,9 +18,9 @@ public class Ammo implements Serializable {
     private PenPerTier penPerTier;
     private String longName;
     private String shortName;
-    public Ammo(){}
+    public AmmoDef(){}
 
-    public Ammo(String caliber, int damage, int penetrationPower, int armorDamage, float accuracyModifier, float recoilModifier, float lightBleedModifier, float heavyBleedModifier, float fragmentationChance, float initialSpeed, boolean tracer, String tracerColor, String ammoType, int projectileCount, PenPerTier penPerTier, String longName, String shortName) {
+    public AmmoDef(String caliber, int damage, int penetrationPower, int armorDamage, float accuracyModifier, float recoilModifier, float lightBleedModifier, float heavyBleedModifier, float fragmentationChance, float initialSpeed, boolean tracer, String tracerColor, String ammoType, int projectileCount, PenPerTier penPerTier) {
         this.caliber = caliber;
         this.damage = damage;
         this.penetrationPower = penetrationPower;
@@ -42,47 +36,23 @@ public class Ammo implements Serializable {
         this.ammoType = ammoType;
         this.projectileCount = projectileCount;
         this.penPerTier = penPerTier;
-        this.longName = longName;
-        this.shortName = shortName;
     }
-
-    public Ammo(Ammo source){
-        this.caliber = source.getCaliber();
-        this.damage = source.getDamage();
-        this.penetrationPower = source.getPenetrationPower();
-        this.armorDamage = source.getArmorDamage();
-        this.accuracyModifier = source.getAccuracyModifier();
-        this.recoilModifier = source.getRecoilModifier();
-        this.lightBleedModifier = source.getLightBleedModifier();
-        this.heavyBleedModifier = source.getHeavyBleedModifier();
-        this.fragmentationChance = source.getFragmentationChance();
-        this.initialSpeed = source.getInitialSpeed();
-        this.tracer = source.isTracer();
-        this.tracerColor = source.getTracerColor();
-        this.ammoType = source.getAmmoType();
-        this.projectileCount = source.getProjectileCount();
-        this.penPerTier = source.getPenPerTier();
-        this.longName = source.getLongName();
-        this.shortName = source.getShortName();
-    }
-    public Ammo(HashMap<String, Object> map){
-        this.caliber = map.get("caliber").toString();
-        this.damage = Integer.parseInt(map.get("damage").toString());
-        this.penetrationPower = Integer.parseInt(map.get("penetrationPower").toString());
-        this.armorDamage = Integer.parseInt(map.get("armorDamage").toString());
-        this.accuracyModifier = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.recoilModifier = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.lightBleedModifier = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.heavyBleedModifier = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.fragmentationChance = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.initialSpeed = Float.parseFloat(map.get("accuracyModifier").toString());
-        this.tracer = Boolean.getBoolean(map.get("tracer").toString());
-        this.tracerColor = map.get("tracerColor").toString();
-        this.ammoType = map.get("ammoType").toString();
-        this.projectileCount = Integer.parseInt(map.get("projectileCount").toString());
-        this.penPerTier = new PenPerTier((HashMap<String, Object>) map.get("penPerTier"));
-        this.longName = map.get("longName").toString();
-        this.shortName = map.get("shortName").toString();
+    public AmmoDef(Ammo ammo, PenPerTier penPerTier) {
+        this.caliber = ammo.getCaliber();
+        this.damage = ammo.getDamage();
+        this.penetrationPower = ammo.getPenetrationPower();
+        this.armorDamage = ammo.getArmorDamage();
+        this.accuracyModifier = ammo.getAccuracyModifier();
+        this.recoilModifier = ammo.getRecoilModifier();
+        this.lightBleedModifier = ammo.getLightBleedModifier();
+        this.heavyBleedModifier = ammo.getHeavyBleedModifier();
+        this.fragmentationChance = ammo.getFragmentationChance();
+        this.initialSpeed = ammo.getInitialSpeed();
+        this.tracer = ammo.isTracer();
+        this.tracerColor = ammo.getTracerColor();
+        this.ammoType = ammo.getAmmoType();
+        this.projectileCount = ammo.getProjectileCount();
+        this.penPerTier = penPerTier;
     }
 
     public String getCaliber() {
@@ -244,3 +214,4 @@ public class Ammo implements Serializable {
         this.shortName = shortName;
     }
 }
+

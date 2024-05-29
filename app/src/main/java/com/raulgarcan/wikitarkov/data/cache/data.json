@@ -1,0 +1,871 @@
+{
+  "data":{
+    "ammo":[
+      {
+        "item":{
+          "name":"5.56x45mm M855"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm M855A1"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 7mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R SNB gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm PS gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"40mm VOG-25 grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm Pst gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm BP gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm BS gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm BT gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm HP"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm PP gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm PRS gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm PS gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm SP"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm T gs"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm US gs"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT AKBS"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT FMJ43"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT LRN"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT LRNPC"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT P gl"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT Pst gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x25mm TT PT gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM BZhT gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM P gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PBM gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PMM PstM gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PPe gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PPT gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PRS gs"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PS gs PPO"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PSO gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM Pst gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM PSV"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM RG028 gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM SP7 gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x18mm PM SP8 gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm SP-5 gs"
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm SP-6 gs"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 lead slug"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm PSO gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R LPS gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm M80"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm BP gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm T-45M1 gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm US gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm HP"
+        }
+      },
+      {
+        "item":{
+          "name":".366 TKM FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":".366 TKM EKO"
+        }
+      },
+      {
+        "item":{
+          "name":".366 TKM Geksa"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm M856"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm M856A1"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm M995"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm MK 255 Mod 0 (RRLP)"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm HP"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R PS gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm PS gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm P gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm PE gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm BT gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 7.5mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm Luger CCI"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm M61"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm M62 Tracer"
+        }
+      },
+      {
+        "item":{
+          "name":"4.6x30mm FMJ SX"
+        }
+      },
+      {
+        "item":{
+          "name":"4.6x30mm Action SX"
+        }
+      },
+      {
+        "item":{
+          "name":"4.6x30mm AP SX"
+        }
+      },
+      {
+        "item":{
+          "name":"4.6x30mm Subsonic SX"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm RIP"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 RIP"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm Warmageddon"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm PPBS gs \"Igolnik\""
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm SPP gs"
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm BP gs"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm Green Tracer"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm AP 6.3"
+        }
+      },
+      {
+        "item":{
+          "name":"12.7x55mm PS12"
+        }
+      },
+      {
+        "item":{
+          "name":"12.7x55mm PS12A"
+        }
+      },
+      {
+        "item":{
+          "name":"12.7x55mm PS12B"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm SS190"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm L191"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm SB193"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm SS198LF"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm SS197SR"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm R37.F"
+        }
+      },
+      {
+        "item":{
+          "name":"5.7x28mm R37.X"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 5.25mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 6.5mm Express buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 8.5mm Magnum buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 Grizzly 40 slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 \"Poleva-3\" slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 \"Poleva-6u\" slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 AP-20 armor-piercing slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 Copper Sabot Premier HP slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 makeshift .50 BMG slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 SuperFormance HP slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 Dual Sabot slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 FTX Custom Lite slug"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 flechette"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 5.6mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 6.2mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 7.3mm buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 Star slug"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 \"Poleva-6u\" slug"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 \"Poleva-3\" slug"
+        }
+      },
+      {
+        "item":{
+          "name":"20/70 Devastator slug"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R T-46M gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R BT gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R BS gs"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm BCP FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm TCW SP"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm Ultra Nosler"
+        }
+      },
+      {
+        "item":{
+          "name":".45 ACP Match FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"23x75mm Shrapnel-10 buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":"23x75mm Zvezda flashbang round"
+        }
+      },
+      {
+        "item":{
+          "name":"23x75mm Barrikada slug"
+        }
+      },
+      {
+        "item":{
+          "name":".45 ACP RIP"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M406 (HE) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M441 (HE) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M381 (HE) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M576 (MP-APERS) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M386 (HE) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x51mm M993"
+        }
+      },
+      {
+        "item":{
+          "name":".45 ACP AP"
+        }
+      },
+      {
+        "item":{
+          "name":".45 ACP Lasermatch FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm PBP gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm QuakeMaker"
+        }
+      },
+      {
+        "item":{
+          "name":".45 ACP Hydra-Shok"
+        }
+      },
+      {
+        "item":{
+          "name":".366 TKM AP-M"
+        }
+      },
+      {
+        "item":{
+          "name":"40x46mm M433 (HEDP) grenade"
+        }
+      },
+      {
+        "item":{
+          "name":"23x75mm Shrapnel-25 buckshot"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Blackout BCP FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":".338 Lapua Magnum FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":".338 Lapua Magnum AP"
+        }
+      },
+      {
+        "item":{
+          "name":".338 Lapua Magnum TAC-X"
+        }
+      },
+      {
+        "item":{
+          "name":".338 Lapua Magnum UCW"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Blackout AP"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm MK 318 Mod 0 (SOST)"
+        }
+      },
+      {
+        "item":{
+          "name":"5.56x45mm SSA AP"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm MAI AP"
+        }
+      },
+      {
+        "item":{
+          "name":"5.45x39mm 7N40"
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm PAB-9 gs"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Blackout V-Max"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Whisper"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Blackout M62 Tracer"
+        }
+      },
+      {
+        "item":{
+          "name":".357 Magnum FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":".357 Magnum HP"
+        }
+      },
+      {
+        "item":{
+          "name":".357 Magnum JHP"
+        }
+      },
+      {
+        "item":{
+          "name":".357 Magnum SP"
+        }
+      },
+      {
+        "item":{
+          "name":"26x75mm flare cartridge (Green)"
+        }
+      },
+      {
+        "item":{
+          "name":"26x75mm flare cartridge (Red)"
+        }
+      },
+      {
+        "item":{
+          "name":"26x75mm flare cartridge (White)"
+        }
+      },
+      {
+        "item":{
+          "name":"26x75mm flare cartridge (Yellow)"
+        }
+      },
+      {
+        "item":{
+          "name":"26x75mm distress signal flare (Poison Green)"
+        }
+      },
+      {
+        "item":{
+          "name":"4.6x30mm JSP SX"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm PP gzh"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x39mm SP"
+        }
+      },
+      {
+        "item":{
+          "name":"9x19mm FMJ M882"
+        }
+      },
+      {
+        "item":{
+          "name":".300 Blackout CBJ"
+        }
+      },
+      {
+        "item":{
+          "name":"12/70 Piranha"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R SP BT"
+        }
+      },
+      {
+        "item":{
+          "name":"7.62x54mm R HP BT"
+        }
+      },
+      {
+        "item":{
+          "name":"6.8x51mm SIG Hybrid"
+        }
+      },
+      {
+        "item":{
+          "name":"6.8x51mm SIG FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm 7N42 \"Zubilo\""
+        }
+      },
+      {
+        "item":{
+          "name":"9x21mm 7U4"
+        }
+      },
+      {
+        "item":{
+          "name":"9x39mm FMJ"
+        }
+      },
+      {
+        "item":{
+          "name":"20x1mm disk"
+        }
+      }
+    ]
+  }
+}

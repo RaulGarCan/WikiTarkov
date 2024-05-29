@@ -2,11 +2,11 @@ package com.raulgarcan.wikitarkov.pojo;
 
 import java.io.Serializable;
 
-public class Map implements Serializable {
+public class TarkovMap implements Serializable {
     private String name;
     private byte[] image;
 
-    public Map(String name, byte[] image) {
+    public TarkovMap(String name, byte[] image) {
         this.name = name;
         this.image = image;
     }

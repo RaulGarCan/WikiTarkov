@@ -64,15 +64,15 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
-        viewHolder.tvAmmoName.setText(ammoList.get(position).getCaliber()+" "+ammoList.get(position).getLongName());
-        viewHolder.tvAmmoDmg.setText("Dmg: "+(int)ammoList.get(position).getDmg());
-        viewHolder.tvAmmoPen.setText("Pen: "+(int)ammoList.get(position).getPen());
-        viewHolder.tvAmmoPenTier1.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(0)));
-        viewHolder.tvAmmoPenTier2.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(1)));
-        viewHolder.tvAmmoPenTier3.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(2)));
-        viewHolder.tvAmmoPenTier4.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(3)));
-        viewHolder.tvAmmoPenTier5.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(4)));
-        viewHolder.tvAmmoPenTier6.setText(String.valueOf(ammoList.get(position).getPenPerTier().get(5)));
+        viewHolder.tvAmmoName.setText(ammoList.get(position).getCaliber().replaceAll("Caliber","")+" "+ammoList.get(position).getShortName());
+        viewHolder.tvAmmoDmg.setText("Dmg: "+ammoList.get(position).getDamage());
+        viewHolder.tvAmmoPen.setText("Pen: "+ammoList.get(position).getPenetrationPower());
+        viewHolder.tvAmmoPenTier1.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier1()));
+        viewHolder.tvAmmoPenTier2.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier2()));
+        viewHolder.tvAmmoPenTier3.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier3()));
+        viewHolder.tvAmmoPenTier4.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier4()));
+        viewHolder.tvAmmoPenTier5.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier5()));
+        viewHolder.tvAmmoPenTier6.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier6()));
     }
 
     @Override

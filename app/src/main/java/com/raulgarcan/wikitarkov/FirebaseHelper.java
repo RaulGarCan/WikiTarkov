@@ -133,7 +133,6 @@ public class FirebaseHelper {
                                 Log.d("Excepcion",e+" "+ammo);
                             }
                         }
-                        sortList(ammoList);
                         fillComponent(rv, ammoList);
                     } else {
                         Log.w("Collection Status","Not found");
@@ -143,14 +142,6 @@ public class FirebaseHelper {
             }
         });
         Log.d("AmmoListReturn", ammoList.toString());
-    }
-    private void sortList(ArrayList<Ammo> ammoList){
-        ammoList.sort(new Comparator<Ammo>() {
-            @Override
-            public int compare(Ammo o1, Ammo o2) {
-                return new Integer(o1.getAaId()).compareTo(o2.getAaId());
-            }
-        });
     }
     private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList){
         String[] ammosName = new String[ammoList.size()];

@@ -16,8 +16,6 @@ import android.widget.Spinner;
 
 import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
-import com.raulgarcan.wikitarkov.activities.HomeActivity;
-import com.raulgarcan.wikitarkov.activities.MainActivity;
 import com.raulgarcan.wikitarkov.pojo.enums.Caliber;
 import com.raulgarcan.wikitarkov.pojo.enums.Guns;
 
@@ -87,7 +85,7 @@ public class AmmoFragment extends Fragment {
         spCalibers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                fillRecyclerView(rvAmmoList,Caliber.getCaliberByName(spCalibers.getSelectedItem().toString()));
+                fillRecyclerView(rvAmmoList, Caliber.getCaliberByName(spCalibers.getSelectedItem().toString()));
             }
 
             @Override
@@ -109,7 +107,7 @@ public class AmmoFragment extends Fragment {
     }
     private void fillRecyclerView(RecyclerView rv, Caliber caliber){
         FirebaseHelper helper = new FirebaseHelper();
-        Log.d("GetAmmoDB",caliber.getGunType().name().toLowerCase()+" "+caliber.getDbName());
-        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getDbName(), rv);
+        Log.d("GetAmmoDB",caliber.getGunType().name().toLowerCase()+" "+caliber.getDisplayName());
+        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getDisplayName(), rv);
     }
 }
