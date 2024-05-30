@@ -44,10 +44,6 @@ public class FirebaseHelper {
         this.firestore = FirebaseFirestore.getInstance();
     }
 
-    public FirebaseAuth getAuth() {
-        return auth;
-    }
-
     public FirebaseFirestore getFirestore() {
         return firestore;
     }
@@ -133,6 +129,7 @@ public class FirebaseHelper {
                                 Log.d("Excepcion",e+" "+ammo);
                             }
                         }
+                        sortList(ammoList);
                         fillComponent(rv, ammoList);
                     } else {
                         Log.w("Collection Status","Not found");
@@ -151,5 +148,13 @@ public class FirebaseHelper {
         }
         rv.setAdapter(new AmmoAdapter(ammoList));
         rv.getAdapter().notifyDataSetChanged();
+    }
+    private void sortList(ArrayList<Ammo> ammoList){
+        ammoList.sort(new Comparator<Ammo>() {
+            @Override
+            public int compare(Ammo o1, Ammo o2) {
+                return Integer.compare(o1.getPenetrationPower(), o2.getPenetrationPower());
+            }
+        });
     }
 }

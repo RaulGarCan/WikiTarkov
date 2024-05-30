@@ -65,7 +65,7 @@ public class AmmoFragment extends Fragment {
         for(int i = 0; i<guns.length; i++){
             gunsName[i] = guns[i].getDisplayName();
         }
-        spGuns.setAdapter(new ArrayAdapter<CharSequence>(this.getContext(), android.R.layout.simple_spinner_dropdown_item,gunsName));
+        spGuns.setAdapter(new ArrayAdapter<CharSequence>(this.getContext(), R.layout.ammo_spinner_item,gunsName));
         spGuns.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -74,7 +74,7 @@ public class AmmoFragment extends Fragment {
                 for(int i = 0; i<ammoCaliberList.size(); i++){
                     calibers[i] = ammoCaliberList.get(i);
                 }
-                spCalibers.setAdapter(new ArrayAdapter<CharSequence>(AmmoFragment.this.getContext(), android.R.layout.simple_spinner_dropdown_item,calibers));
+                spCalibers.setAdapter(new ArrayAdapter<CharSequence>(AmmoFragment.this.getContext(),  R.layout.ammo_spinner_item,calibers));
             }
 
             @Override

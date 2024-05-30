@@ -1,11 +1,15 @@
 package com.raulgarcan.wikitarkov.recyclers;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.raulgarcan.wikitarkov.R;
@@ -73,6 +77,40 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
         viewHolder.tvAmmoPenTier4.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier4()));
         viewHolder.tvAmmoPenTier5.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier5()));
         viewHolder.tvAmmoPenTier6.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier6()));
+
+        setColorPenTiers(viewHolder.tvAmmoPenTier1,ammoList.get(position).getPenPerTier().getTier1());
+        setColorPenTiers(viewHolder.tvAmmoPenTier2,ammoList.get(position).getPenPerTier().getTier2());
+        setColorPenTiers(viewHolder.tvAmmoPenTier3,ammoList.get(position).getPenPerTier().getTier3());
+        setColorPenTiers(viewHolder.tvAmmoPenTier4,ammoList.get(position).getPenPerTier().getTier4());
+        setColorPenTiers(viewHolder.tvAmmoPenTier5,ammoList.get(position).getPenPerTier().getTier5());
+        setColorPenTiers(viewHolder.tvAmmoPenTier6,ammoList.get(position).getPenPerTier().getTier6());
+    }
+    private void setColorPenTiers(TextView tv, int pen){
+        switch (pen){
+            case 0:
+                tv.setBackgroundResource(R.color.pen0);
+                break;
+            case 1:
+                tv.setBackgroundResource(R.color.pen1);
+                break;
+            case 2:
+                tv.setBackgroundResource(R.color.pen2);
+                break;
+            case 3:
+                tv.setBackgroundResource(R.color.pen3);
+                break;
+            case 4:
+                tv.setBackgroundResource(R.color.pen4);
+                break;
+            case 5:
+                tv.setBackgroundResource(R.color.pen5);
+                break;
+            case 6:
+                tv.setBackgroundResource(R.color.pen6);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
