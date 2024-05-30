@@ -565,7 +565,7 @@ public class Main {
     private static ArrayList<Ammo> clasificarPorCalibre(Data data, Caliber caliber) {
         ArrayList<Ammo> result = new ArrayList<>();
         for (Ammo a : data.getAmmo()) {
-            if (a.getCaliber().replaceAll("Caliber", "").equalsIgnoreCase(caliber.getDisplayName())) {
+            if (a.getCaliber().replaceAll("Caliber", "").equalsIgnoreCase(caliber.getInternalName())) {
                 result.add(a);
             }
         }

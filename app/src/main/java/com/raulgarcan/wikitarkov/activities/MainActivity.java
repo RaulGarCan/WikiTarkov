@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = helper.getFirestore();
         Caliber[] calibers = Caliber.values();
         for(Caliber c : calibers){
-            String json = Main.leerJsonAndroid("Caliber"+c.getDisplayName());
+            String json = Main.leerJsonAndroid("Caliber"+c.getInternalName());
             Ammo[] ammoList = new Gson().fromJson(json,Ammo[].class);
             for(Ammo a : ammoList){
-                db.collection("ammo").document(c.getGunType().name().toLowerCase()).collection(c.getDisplayName()).add(a).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                db.collection("ammo").document(c.getGunType().name().toLowerCase()).collection(c.getInternalName()).add(a).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if(task.isSuccessful()){

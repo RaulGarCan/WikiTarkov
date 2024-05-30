@@ -68,7 +68,7 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
-        viewHolder.tvAmmoName.setText(ammoList.get(position).getCaliber().replaceAll("Caliber","")+" "+ammoList.get(position).getShortName());
+        viewHolder.tvAmmoName.setText(ammoList.get(position).getDisplayCaliber().replaceAll("Caliber","")+" "+ammoList.get(position).getShortName());
         viewHolder.tvAmmoDmg.setText("Dmg: "+ammoList.get(position).getDamage());
         viewHolder.tvAmmoPen.setText("Pen: "+ammoList.get(position).getPenetrationPower());
         viewHolder.tvAmmoPenTier1.setText(String.valueOf(ammoList.get(position).getPenPerTier().getTier1()));

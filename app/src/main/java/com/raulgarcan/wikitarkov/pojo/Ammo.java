@@ -88,6 +88,24 @@ public class Ammo implements Serializable {
     public String getCaliber() {
         return caliber;
     }
+    public String getDisplayCaliber(){
+        if(caliber.equalsIgnoreCase("Caliber1143x23ACP")){
+            return "Caliber.45ACP";
+        }
+        if(caliber.equalsIgnoreCase("Caliber86x70")){
+            return "Caliber.338Lapua";
+        }
+        if(caliber.equalsIgnoreCase("Caliber762x35")){
+            return "Caliber.300Blackout";
+        }
+        if(caliber.equalsIgnoreCase("Caliber9x33R")){
+            return "Caliber.357Magnum";
+        }
+        if(caliber.equalsIgnoreCase("Caliber366TKM")){
+            return "Caliber.366TKM";
+        }
+        return caliber;
+    }
 
     public void setCaliber(String caliber) {
         this.caliber = caliber;
