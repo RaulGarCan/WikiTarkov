@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.raulgarcan.wikitarkov.FirebaseHelper;
@@ -19,6 +20,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Button btnSignUp, btnGoback;
     private EditText etEmail, etPassword, etField1, etField2, etField3;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +33,16 @@ public class SignUpActivity extends AppCompatActivity {
         etField3 = findViewById(R.id.et_field3_signup);
         btnSignUp = findViewById(R.id.btn_signup);
         btnGoback = findViewById(R.id.btn_signup_goback);
+        progressBar = findViewById(R.id.pb_signup);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 HashMap<String, Object> data = new HashMap<>();
-                data.put("field1","f1");
-                data.put("field2","f2");
-                data.put("field3","f3");
+                data.put("field1",etField1.getText());
+                data.put("field2",etField2.getText());
+                data.put("field3",etField3.getText());
                 String email = etEmail.getText().toString().trim().replaceAll(" ","");
                 String password = etPassword.getText().toString().trim().replaceAll(" ","");
                 ErrorMsg errorMsg = new ErrorMsg("");
@@ -46,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
                     signUp(email, password, data);
                 } else {
                     Toast.makeText(SignUpActivity.this, errorMsg.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -58,8 +63,8 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private void signUp(String email, String password, HashMap<String, Object> data){
-        FirebaseHelper helper = new FirebaseHelper();
-        helper.signUp(email, password, data, this);
+        FirebaseHelper helper = new FirebaseHelper(this);
+        helper.signUp(email, password, data, progressBar);
     }
     private boolean checkFieldsSignUp(String email, String password, HashMap<String, Object> data, ErrorMsg errorMsg){
         if(data.get("field1").toString().isEmpty() || data.get("field2").toString().isEmpty() || data.get("field3").toString().isEmpty()

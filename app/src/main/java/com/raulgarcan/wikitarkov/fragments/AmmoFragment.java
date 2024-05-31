@@ -111,8 +111,8 @@ public class AmmoFragment extends Fragment {
         return ammoCaliberList;
     }
     private void fillRecyclerView(RecyclerView rv, Caliber caliber){
-        FirebaseHelper helper = new FirebaseHelper();
+        FirebaseHelper helper = new FirebaseHelper(activity);
         Log.d("GetAmmoDB",caliber.getGunType().name().toLowerCase()+" "+caliber.getInternalName());
-        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getInternalName(), rv,activity);
+        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getInternalName(), rv);
     }
 }

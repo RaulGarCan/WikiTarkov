@@ -15,6 +15,7 @@ import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
 import com.raulgarcan.wikitarkov.fragments.AmmoFragment;
 import com.raulgarcan.wikitarkov.fragments.DefaultFragment;
+import com.raulgarcan.wikitarkov.fragments.MapsFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,13 +50,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Acción para la opción 1
             // Puedes abrir un nuevo fragmento, iniciar una nueva actividad, etc.
 
-            AmmoFragment perfilEstudianteFragment = new AmmoFragment(HomeActivity.this);
+            AmmoFragment ammoFragment = new AmmoFragment(HomeActivity.this);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.home_frame_fragments, perfilEstudianteFragment)
+                    .replace(R.id.home_frame_fragments, ammoFragment)
                     .commit();
 
+        } else if(itemId == R.id.side_menu_wishlist){
+
+        } else if(itemId == R.id.side_menu_maps){
+            MapsFragment mapsFragment = new MapsFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_fragments, mapsFragment)
+                    .commit();
+        } else if(itemId == R.id.side_menu_hideout){
+
         } else if(itemId == R.id.side_menu_logout){
-            FirebaseHelper helper = new FirebaseHelper();
+            FirebaseHelper helper = new FirebaseHelper(this);
             helper.logOut(this);
         }
         drawerLayout.closeDrawer(GravityCompat.START);

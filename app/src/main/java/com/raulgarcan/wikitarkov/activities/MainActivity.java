@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +30,7 @@ import com.raulgarcan.wikitarkov.pojo.ErrorMsg;
 public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin, btnSignup;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password_login);
         btnLogin = findViewById(R.id.btn_login);
         btnSignup = findViewById(R.id.btn_signup_activity);
+        progressBar = findViewById(R.id.pb_login);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 logIn();
             }
         });
@@ -57,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseHelper helper = new FirebaseHelper();
-        helper.getTarkovMaps();
+        FirebaseHelper helper = new FirebaseHelper(this);
+        helper.getTarkovMaps(true);
 
         //saveDataOnDB();
     }
     private void saveDataOnDB(){
-        FirebaseHelper helper = new FirebaseHelper();
+        FirebaseHelper helper = new FirebaseHelper(this);
         FirebaseFirestore db = helper.getFirestore();
         Caliber[] calibers = Caliber.values();
         for(Caliber c : calibers){
@@ -88,9 +93,10 @@ public class MainActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim().replaceAll(" ","");
         ErrorMsg errorMsg = new ErrorMsg("");
         if(checkFieldsLogIn(email, password, errorMsg)){
-            FirebaseHelper helper = new FirebaseHelper();
-            helper.logIn(email, password, MainActivity.this);
+            FirebaseHelper helper = new FirebaseHelper(this);
+            helper.logIn(email, password, MainActivity.this, progressBar);
         } else {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(this, errorMsg.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }

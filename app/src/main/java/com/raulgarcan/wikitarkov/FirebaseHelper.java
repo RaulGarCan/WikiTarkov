@@ -4,17 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,52 +22,62 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.raulgarcan.wikitarkov.activities.HomeActivity;
 import com.raulgarcan.wikitarkov.activities.MainActivity;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
+import com.raulgarcan.wikitarkov.pojo.enums.MapTarkov;
 import com.raulgarcan.wikitarkov.recyclers.AmmoAdapter;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 public class FirebaseHelper {
     private final FirebaseAuth auth;
     private final FirebaseFirestore firestore;
     private final FirebaseStorage storage;
+    private final String pathFiles;
+    private final Activity activity;
 
-    public FirebaseHelper() {
+    public FirebaseHelper(Activity activity) {
         this.auth = FirebaseAuth.getInstance();
         this.firestore = FirebaseFirestore.getInstance();
         this.storage = FirebaseStorage.getInstance("gs://wikitarkov.appspot.com");
+        this.activity = activity;
+        this.pathFiles = activity.getFilesDir().getPath();
     }
 
     public FirebaseFirestore getFirestore() {
         return firestore;
     }
-    public void getTarkovMaps(){
-        String[] mapFileNames = {"customs.jpg","reserve.jpg","groundzero.jpg","streets.jpg","woods.jpg","interchange.jpg"};
-        String path = "/data/data/com.raulgarcan.wikitarkov/cache/data/maps";
+
+    public String getPathFiles() {
+        return pathFiles;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void getTarkovMaps(boolean checkIfFilesExists){
+        MapTarkov[] maps = MapTarkov.values();
+        ArrayList<String> mapFileNames = new ArrayList<>();
+        for(MapTarkov m : maps){
+            if(!m.getFileName().isBlank()){
+                mapFileNames.add(m.getFileName());
+            }
+        }
         StorageReference storageRef = storage.getReference("/maps");
         for(String s : mapFileNames){
-            if(new File(path+"/"+s).exists()){
+            if(new File(pathFiles+"/cache/data/maps/"+s).exists() && checkIfFilesExists){
                 continue;
             }
             StorageReference pathRef = storageRef.child(s);
@@ -81,7 +88,7 @@ public class FirebaseHelper {
                     Log.d("ImageGetStatus","Successful");
                     try {
                         Log.d("ImageData",Arrays.toString(bytes));
-                        OutputStream writer = new FileOutputStream(path+"/"+s);
+                        OutputStream writer = new FileOutputStream(pathFiles +"/cache/data/maps/"+s);
                         writer.write(bytes);
                         writer.close();
                     } catch (IOException e) {
@@ -97,20 +104,21 @@ public class FirebaseHelper {
         }
     }
 
-    public void signUp(String email, String password, HashMap<String, Object> data, Activity activity){
+    public void signUp(String email, String password, HashMap<String, Object> data, ProgressBar progressBar){
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.d("SignUp Status","Successful");
-                    saveAditionalSignUpData(data, auth.getCurrentUser().getUid(), activity);
+                    saveAditionalSignUpData(data, auth.getCurrentUser().getUid());
                 } else {
                     Log.w("SignUp Status","Error");
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
     }
-    private void saveAditionalSignUpData(HashMap<String, Object> data, String userID, Activity activity){
+    private void saveAditionalSignUpData(HashMap<String, Object> data, String userID){
         firestore.collection("user").document(userID).set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -123,7 +131,7 @@ public class FirebaseHelper {
             }
         });
     }
-    public void logIn(String email, String password, Activity currentActivity){
+    public void logIn(String email, String password, Activity currentActivity, ProgressBar progressBar){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -133,6 +141,7 @@ public class FirebaseHelper {
                     currentActivity.startActivity(new Intent(currentActivity, HomeActivity.class));
                 } else {
                     Toast.makeText(currentActivity, "User not found",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                     Log.w("LogIn Status","Error");
                 }
             }
@@ -159,7 +168,7 @@ public class FirebaseHelper {
             }
         });
     }
-    public void getAmmoDB(String ammoType, String caliber, RecyclerView rv, Activity activity){
+    public void getAmmoDB(String ammoType, String caliber, RecyclerView rv){
         ArrayList<Ammo> ammoList = new ArrayList<>();
         firestore.collection("ammo").document(ammoType).collection(caliber).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -180,7 +189,7 @@ public class FirebaseHelper {
                             }
                         }
                         sortList(ammoList);
-                        fillComponent(rv, ammoList, activity);
+                        fillComponent(rv, ammoList);
                     } else {
                         Log.w("Collection Status","Not found");
                     }
@@ -190,7 +199,7 @@ public class FirebaseHelper {
         });
         Log.d("AmmoListReturn", ammoList.toString());
     }
-    private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList, Activity activity){
+    private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList){
         String[] ammosName = new String[ammoList.size()];
         for(int i = 0; i<ammoList.size(); i++){
             ammosName[i] = ammoList.get(i).getCaliber()+" "+ammoList.get(i).getLongName();

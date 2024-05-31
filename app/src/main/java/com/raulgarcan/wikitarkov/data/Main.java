@@ -1,6 +1,7 @@
 package com.raulgarcan.wikitarkov.data;
 
 import com.google.gson.Gson;
+import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.pojo.enums.Caliber;
 
 import java.io.*;
@@ -943,9 +944,10 @@ public class Main {
         }
     }
     public static String leerJsonAndroid(String fileName){
-        String ruta = "/data/data/com.raulgarcan.wikitarkov/cache/data/";
+        FirebaseHelper helper = new FirebaseHelper(null);
+        String ruta = helper.getPathFiles();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(ruta + fileName + ".json"));
+            BufferedReader reader = new BufferedReader(new FileReader(ruta+"/cache/data/" + fileName + ".json"));
             String line;
             String result = "";
             while ((line = reader.readLine()) != null) {
