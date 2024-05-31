@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseHelper helper = new FirebaseHelper();
+        helper.getTarkovMaps();
+
         //saveDataOnDB();
     }
     private void saveDataOnDB(){

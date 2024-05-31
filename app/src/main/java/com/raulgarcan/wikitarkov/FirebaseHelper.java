@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +25,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.raulgarcan.wikitarkov.activities.HomeActivity;
 import com.raulgarcan.wikitarkov.activities.MainActivity;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
@@ -28,6 +35,15 @@ import com.raulgarcan.wikitarkov.recyclers.AmmoAdapter;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -38,15 +54,49 @@ import java.util.concurrent.CountDownLatch;
 public class FirebaseHelper {
     private final FirebaseAuth auth;
     private final FirebaseFirestore firestore;
+    private final FirebaseStorage storage;
 
     public FirebaseHelper() {
         this.auth = FirebaseAuth.getInstance();
         this.firestore = FirebaseFirestore.getInstance();
+        this.storage = FirebaseStorage.getInstance("gs://wikitarkov.appspot.com");
     }
 
     public FirebaseFirestore getFirestore() {
         return firestore;
     }
+    public void getTarkovMaps(){
+        String[] mapFileNames = {"customs.jpg","reserve.jpg","groundzero.jpg","streets.jpg","woods.jpg","interchange.jpg"};
+        String path = "/data/data/com.raulgarcan.wikitarkov/cache/data/maps";
+        StorageReference storageRef = storage.getReference("/maps");
+        for(String s : mapFileNames){
+            if(new File(path+"/"+s).exists()){
+                continue;
+            }
+            StorageReference pathRef = storageRef.child(s);
+            final long MAX_MB_SIZE = 2024*1024;
+            pathRef.getBytes(MAX_MB_SIZE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Log.d("ImageGetStatus","Successful");
+                    try {
+                        Log.d("ImageData",Arrays.toString(bytes));
+                        OutputStream writer = new FileOutputStream(path+"/"+s);
+                        writer.write(bytes);
+                        writer.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w("ImageGetStatus","Failed: "+e);
+                }
+            });
+        }
+    }
+
     public void signUp(String email, String password, HashMap<String, Object> data, Activity activity){
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
