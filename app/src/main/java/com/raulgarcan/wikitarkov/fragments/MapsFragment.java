@@ -1,6 +1,9 @@
 package com.raulgarcan.wikitarkov.fragments;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,8 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.tabs.TabLayout;
+import com.raulgarcan.wikitarkov.FirebaseHelper;
 import com.raulgarcan.wikitarkov.R;
 import com.raulgarcan.wikitarkov.pojo.enums.MapTarkov;
 
@@ -28,6 +34,8 @@ import java.util.ArrayList;
 public class MapsFragment extends Fragment {
     private TabLayout tabLayoutTop, tabLayoutBottom;
     private Drawable indicator;
+    private PhotoView pvMap;
+    private Activity activity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +48,10 @@ public class MapsFragment extends Fragment {
 
     public MapsFragment() {
         // Required empty public constructor
+    }
+    public MapsFragment(Activity activity) {
+        // Required empty public constructor
+        this.activity = activity;
     }
 
     /**
@@ -77,6 +89,7 @@ public class MapsFragment extends Fragment {
         tabLayoutTop = v.findViewById(R.id.tl_maps_top);
         tabLayoutBottom = v.findViewById(R.id.tl_maps_bottom);
         indicator = tabLayoutTop.getTabSelectedIndicator();
+        pvMap = v.findViewById(R.id.pv_map);
 
         MapTarkov[] mapTarkovs = MapTarkov.values();
         ArrayList<MapTarkov> mapTarkovTop = new ArrayList<>();
@@ -149,6 +162,14 @@ public class MapsFragment extends Fragment {
         tabLayoutTop.setSelectedTabIndicator(null);
     }
     private void showSelectedMap(TabLayout.Tab tab){
+
         Log.d("SelectedMap",tab.getText().toString());
+        String fileName = MapTarkov.getMapByName(tab.getText().toString()).getFileName();
+        FirebaseHelper helper = new FirebaseHelper(activity);
+        byte[] image = helper.readMap(fileName);
+        if(image!=null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            pvMap.setImageBitmap(bmp);
+        }
     }
 }

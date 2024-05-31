@@ -25,4 +25,30 @@ public enum MapTarkov {
     public String getDisplayName() {
         return displayName;
     }
+    public static MapTarkov getMapByName(String displayName){
+        switch (displayName){
+            case "Factory":
+                return MapTarkov.FACTORY;
+            case "Woods":
+                return MapTarkov.WOODS;
+            case "Customs":
+                return MapTarkov.CUSTOMS;
+            case "Interchange":
+                return MapTarkov.INTERCHANGE;
+            case "Reserve":
+                return MapTarkov.RESERVE;
+            case "Shoreline":
+                return MapTarkov.SHORELINE;
+            case "The Lab":
+                return MapTarkov.THELAB;
+            case "Lighthouse":
+                return MapTarkov.LIGHTHOUSE;
+            case "Streets":
+                return MapTarkov.STREETS;
+            case "Ground Zero":
+                return MapTarkov.GROUNDZERO;
+            default:
+                return null;
+        }
+    }
 }

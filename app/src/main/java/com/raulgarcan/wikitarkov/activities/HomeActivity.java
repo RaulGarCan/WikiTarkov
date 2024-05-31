@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if(itemId == R.id.side_menu_wishlist){
 
         } else if(itemId == R.id.side_menu_maps){
-            MapsFragment mapsFragment = new MapsFragment();
+            MapsFragment mapsFragment = new MapsFragment(HomeActivity.this);
             getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_fragments, mapsFragment)
                     .commit();
         } else if(itemId == R.id.side_menu_hideout){

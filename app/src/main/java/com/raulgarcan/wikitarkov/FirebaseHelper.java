@@ -31,8 +31,11 @@ import com.raulgarcan.wikitarkov.pojo.enums.MapTarkov;
 import com.raulgarcan.wikitarkov.recyclers.AmmoAdapter;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +68,17 @@ public class FirebaseHelper {
 
     public Activity getActivity() {
         return activity;
+    }
+    public byte[] readMap(String fileName){
+        if(!new File(pathFiles+"/cache/data/maps/"+fileName).exists() || fileName.isBlank()){
+            return null;
+        }
+        try {
+            InputStream read = new FileInputStream(pathFiles+"/cache/data/maps/"+fileName);
+            return read.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getTarkovMaps(boolean checkIfFilesExists){

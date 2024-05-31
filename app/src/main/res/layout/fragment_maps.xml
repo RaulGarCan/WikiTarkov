@@ -3,24 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MapsFragment"
-    android:layout_marginTop="40dp">
+    android:layout_marginTop="40dp"
+    tools:context=".fragments.MapsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_maps_top"
-            android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top" >
-        </com.google.android.material.tabs.TabLayout>
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_maps_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" />
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_maps_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_maps_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top" />
+        </LinearLayout>
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/pv_map"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </FrameLayout>
