@@ -109,7 +109,7 @@ public class FirebaseHelper {
             }
         });
     }
-    public void getAmmoDB(String ammoType, String caliber, RecyclerView rv){
+    public void getAmmoDB(String ammoType, String caliber, RecyclerView rv, Activity activity){
         ArrayList<Ammo> ammoList = new ArrayList<>();
         firestore.collection("ammo").document(ammoType).collection(caliber).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -130,7 +130,7 @@ public class FirebaseHelper {
                             }
                         }
                         sortList(ammoList);
-                        fillComponent(rv, ammoList);
+                        fillComponent(rv, ammoList, activity);
                     } else {
                         Log.w("Collection Status","Not found");
                     }
@@ -140,13 +140,13 @@ public class FirebaseHelper {
         });
         Log.d("AmmoListReturn", ammoList.toString());
     }
-    private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList){
+    private void fillComponent(RecyclerView rv, ArrayList<Ammo> ammoList, Activity activity){
         String[] ammosName = new String[ammoList.size()];
         for(int i = 0; i<ammoList.size(); i++){
             ammosName[i] = ammoList.get(i).getCaliber()+" "+ammoList.get(i).getLongName();
             Log.d("AmmoElement",ammoList.get(i).toString());
         }
-        rv.setAdapter(new AmmoAdapter(ammoList));
+        rv.setAdapter(new AmmoAdapter(ammoList, activity));
         rv.getAdapter().notifyDataSetChanged();
     }
     private void sortList(ArrayList<Ammo> ammoList){

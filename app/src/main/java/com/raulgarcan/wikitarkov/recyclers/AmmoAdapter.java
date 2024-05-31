@@ -1,6 +1,9 @@
 package com.raulgarcan.wikitarkov.recyclers;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.raulgarcan.wikitarkov.R;
+import com.raulgarcan.wikitarkov.activities.AmmoDetailsActivity;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
      * (custom ViewHolder)
      */
     private ArrayList<Ammo> ammoList;
+    private Activity activity;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvAmmoName, tvAmmoPen, tvAmmoDmg, tvAmmoPenTier1, tvAmmoPenTier2, tvAmmoPenTier3, tvAmmoPenTier4, tvAmmoPenTier5, tvAmmoPenTier6;
         private CardView cvAmmoItem;
@@ -40,6 +45,7 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
             tvAmmoPenTier4 = view.findViewById(R.id.tv_ammo_pen_tier4);
             tvAmmoPenTier5 = view.findViewById(R.id.tv_ammo_pen_tier5);
             tvAmmoPenTier6 = view.findViewById(R.id.tv_ammo_pen_tier6);
+            cvAmmoItem = view.findViewById(R.id.cv_ammo_item);
         }
     }
 
@@ -47,8 +53,9 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
      * Initialize the dataset of the Adapter
      *
      */
-    public AmmoAdapter(ArrayList<Ammo> ammoList) {
+    public AmmoAdapter(ArrayList<Ammo> ammoList, Activity activity) {
         this.ammoList = ammoList;
+        this.activity = activity;
     }
 
     // Create new views (invoked by the layout manager)
@@ -64,7 +71,6 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
@@ -84,6 +90,15 @@ public class AmmoAdapter extends RecyclerView.Adapter<AmmoAdapter.ViewHolder> {
         setColorPenTiers(viewHolder.tvAmmoPenTier4,ammoList.get(position).getPenPerTier().getTier4());
         setColorPenTiers(viewHolder.tvAmmoPenTier5,ammoList.get(position).getPenPerTier().getTier5());
         setColorPenTiers(viewHolder.tvAmmoPenTier6,ammoList.get(position).getPenPerTier().getTier6());
+
+        viewHolder.cvAmmoItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, AmmoDetailsActivity.class);
+                i.putExtra("ammo",ammoList.get(viewHolder.getAdapterPosition()));
+                activity.startActivity(i);
+            }
+        });
     }
     private void setColorPenTiers(TextView tv, int pen){
         switch (pen){

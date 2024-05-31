@@ -1,8 +1,9 @@
 package com.raulgarcan.wikitarkov.pojo;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class PenPerTier {
+public class PenPerTier implements Serializable {
     private int tier1;
     private int tier2;
     private int tier3;

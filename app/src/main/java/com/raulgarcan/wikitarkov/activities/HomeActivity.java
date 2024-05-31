@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.home_navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        AmmoFragment defaultFragment = new AmmoFragment();
+        AmmoFragment defaultFragment = new AmmoFragment(HomeActivity.this);
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_fragments,defaultFragment).commit();
@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Acción para la opción 1
             // Puedes abrir un nuevo fragmento, iniciar una nueva actividad, etc.
 
-            AmmoFragment perfilEstudianteFragment = new AmmoFragment();
+            AmmoFragment perfilEstudianteFragment = new AmmoFragment(HomeActivity.this);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.home_frame_fragments, perfilEstudianteFragment)
                     .commit();

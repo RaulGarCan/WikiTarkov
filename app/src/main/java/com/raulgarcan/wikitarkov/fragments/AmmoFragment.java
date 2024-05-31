@@ -1,5 +1,6 @@
 package com.raulgarcan.wikitarkov.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,8 +28,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AmmoFragment extends Fragment {
+    private Activity activity;
     public AmmoFragment() {
         // Required empty public constructor
+    }
+    public AmmoFragment(Activity activity) {
+        this.activity = activity;
     }
 
     /**
@@ -108,6 +113,6 @@ public class AmmoFragment extends Fragment {
     private void fillRecyclerView(RecyclerView rv, Caliber caliber){
         FirebaseHelper helper = new FirebaseHelper();
         Log.d("GetAmmoDB",caliber.getGunType().name().toLowerCase()+" "+caliber.getInternalName());
-        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getInternalName(), rv);
+        helper.getAmmoDB(caliber.getGunType().name().toLowerCase(), caliber.getInternalName(), rv,activity);
     }
 }
