@@ -26,6 +26,7 @@ import com.raulgarcan.wikitarkov.pojo.enums.Caliber;
 import com.raulgarcan.wikitarkov.data.Main;
 import com.raulgarcan.wikitarkov.pojo.Ammo;
 import com.raulgarcan.wikitarkov.pojo.ErrorMsg;
+import com.raulgarcan.wikitarkov.pojo.enums.MapTarkov;
 
 public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
         String currentUser = preferences.getString("CurrentUser","");
-        if(currentUser.isEmpty()){
+        if(!currentUser.isEmpty()){
             startActivity(new Intent(this, HomeActivity.class));
         }
         etEmail = findViewById(R.id.et_email_login);
@@ -65,7 +66,24 @@ public class MainActivity extends AppCompatActivity {
         FirebaseHelper helper = new FirebaseHelper(this);
         helper.getTarkovMaps(true);
 
+        for(MapTarkov m : MapTarkov.values()){
+            new Thread(new Loader(m.getFileName())).start();
+        }
         //saveDataOnDB();
+    }
+    class Loader implements Runnable {
+        String fileName;
+        Loader(String fileName){
+           this.fileName = fileName;
+        }
+        @Override
+        public void run() {
+            loadMaps(fileName);
+        }
+    }
+    private void loadMaps(String fileName){
+        FirebaseHelper helper = new FirebaseHelper(this);
+        FirebaseHelper.mapsImageHash.put(fileName,helper.readMap(fileName));
     }
     private void saveDataOnDB(){
         FirebaseHelper helper = new FirebaseHelper(this);

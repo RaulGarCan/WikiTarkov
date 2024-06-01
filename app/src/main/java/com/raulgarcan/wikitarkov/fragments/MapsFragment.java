@@ -162,11 +162,13 @@ public class MapsFragment extends Fragment {
         tabLayoutTop.setSelectedTabIndicator(null);
     }
     private void showSelectedMap(TabLayout.Tab tab){
-
         Log.d("SelectedMap",tab.getText().toString());
         String fileName = MapTarkov.getMapByName(tab.getText().toString()).getFileName();
         FirebaseHelper helper = new FirebaseHelper(activity);
-        byte[] image = helper.readMap(fileName);
+        if(FirebaseHelper.mapsImageHash.get(fileName)==null){
+            FirebaseHelper.mapsImageHash.put(fileName,helper.readMap(fileName));
+        }
+        byte[] image = FirebaseHelper.mapsImageHash.get(fileName);
         if(image!=null){
             Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
             pvMap.setImageBitmap(bmp);

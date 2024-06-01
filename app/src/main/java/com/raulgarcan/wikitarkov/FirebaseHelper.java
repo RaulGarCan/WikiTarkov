@@ -2,6 +2,7 @@ package com.raulgarcan.wikitarkov;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -37,11 +38,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseHelper {
     private final FirebaseAuth auth;
@@ -49,13 +52,15 @@ public class FirebaseHelper {
     private final FirebaseStorage storage;
     private final String pathFiles;
     private final Activity activity;
+    public static HashMap<String,byte[]> mapsImageHash = new HashMap<>();
 
     public FirebaseHelper(Activity activity) {
         this.auth = FirebaseAuth.getInstance();
         this.firestore = FirebaseFirestore.getInstance();
         this.storage = FirebaseStorage.getInstance("gs://wikitarkov.appspot.com");
         this.activity = activity;
-        this.pathFiles = activity.getFilesDir().getPath();
+        this.pathFiles = activity.getApplicationContext().getFilesDir().getPath();
+        Log.d("PathFiles",pathFiles);
     }
 
     public FirebaseFirestore getFirestore() {
@@ -70,12 +75,16 @@ public class FirebaseHelper {
         return activity;
     }
     public byte[] readMap(String fileName){
-        if(!new File(pathFiles+"/cache/data/maps/"+fileName).exists() || fileName.isBlank()){
+        if(!new File(pathFiles+"/"+fileName).exists() || fileName.isBlank()){
             return null;
         }
         try {
-            InputStream read = new FileInputStream(pathFiles+"/cache/data/maps/"+fileName);
-            return read.readAllBytes();
+            InputStream read = new FileInputStream(pathFiles+"/"+fileName);
+            byte[] data = new byte[(int)Files.size(new File(pathFiles+"/"+fileName).toPath())];
+            for(int i = 0; i<data.length; i++){
+                data[i] = (byte)read.read();
+            }
+            return data;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -91,7 +100,7 @@ public class FirebaseHelper {
         }
         StorageReference storageRef = storage.getReference("/maps");
         for(String s : mapFileNames){
-            if(new File(pathFiles+"/cache/data/maps/"+s).exists() && checkIfFilesExists){
+            if(new File(pathFiles+"/"+s).exists() && checkIfFilesExists){
                 continue;
             }
             StorageReference pathRef = storageRef.child(s);
@@ -102,7 +111,7 @@ public class FirebaseHelper {
                     Log.d("ImageGetStatus","Successful");
                     try {
                         Log.d("ImageData",Arrays.toString(bytes));
-                        OutputStream writer = new FileOutputStream(pathFiles +"/cache/data/maps/"+s);
+                        OutputStream writer = new FileOutputStream(pathFiles +"/"+s);
                         writer.write(bytes);
                         writer.close();
                     } catch (IOException e) {
@@ -127,8 +136,8 @@ public class FirebaseHelper {
                     saveAditionalSignUpData(data, auth.getCurrentUser().getUid());
                 } else {
                     Log.w("SignUp Status","Error");
-                    progressBar.setVisibility(View.INVISIBLE);
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -155,9 +164,9 @@ public class FirebaseHelper {
                     currentActivity.startActivity(new Intent(currentActivity, HomeActivity.class));
                 } else {
                     Toast.makeText(currentActivity, "User not found",Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
                     Log.w("LogIn Status","Error");
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

@@ -40,9 +40,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 HashMap<String, Object> data = new HashMap<>();
-                data.put("field1",etField1.getText());
-                data.put("field2",etField2.getText());
-                data.put("field3",etField3.getText());
+                data.put("field1",etField1.getText().toString());
+                data.put("field2",etField2.getText().toString());
+                data.put("field3",etField3.getText().toString());
                 String email = etEmail.getText().toString().trim().replaceAll(" ","");
                 String password = etPassword.getText().toString().trim().replaceAll(" ","");
                 ErrorMsg errorMsg = new ErrorMsg("");

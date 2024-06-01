@@ -23,7 +23,7 @@ public class AmmoDetailsActivity extends AppCompatActivity {
         btnGoBack = findViewById(R.id.btn_ammo_details_goback);
         Intent i = this.getIntent();
         if(i!=null){
-            ammo = i.getSerializableExtra("ammo", Ammo.class);
+            ammo = (Ammo) i.getSerializableExtra("ammo");
             tvAmmoDetails.setText(ammo.toString());
         }
         btnGoBack.setOnClickListener(new View.OnClickListener() {
