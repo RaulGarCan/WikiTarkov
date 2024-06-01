@@ -64,34 +64,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
-
-        FirebaseHelper helper = new FirebaseHelper(this);
-        helper.getTarkovMaps(true);
-
-        for(MapTarkov m : MapTarkov.values()){
-            new Thread(new Loader(m.getFileName())).start();
-        }
-        //saveDataOnDB();
     }
-    class Loader implements Runnable {
-        String fileName;
-        Loader(String fileName){
-           this.fileName = fileName;
-        }
-        @Override
-        public void run() {
-            loadMaps(fileName);
-        }
-    }
+
 
     public static SharedPreferences getPreferences() {
         return preferences;
     }
 
-    private void loadMaps(String fileName){
-        FirebaseHelper helper = new FirebaseHelper(this);
-        FirebaseHelper.mapsImageHash.put(fileName,helper.readMap(fileName));
-    }
     private void saveDataOnDB(){
         FirebaseHelper helper = new FirebaseHelper(this);
         FirebaseFirestore db = helper.getFirestore();

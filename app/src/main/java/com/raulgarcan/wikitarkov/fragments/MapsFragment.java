@@ -102,10 +102,12 @@ public class MapsFragment extends Fragment {
             }
         }
         for(MapTarkov m : mapTarkovTop){
-            tabLayoutTop.addTab(tabLayoutTop.newTab().setText(m.getDisplayName()));
+            TabLayout.Tab tab = tabLayoutTop.newTab().setText(m.getDisplayName());
+            tabLayoutTop.addTab(tab);
         }
         for(MapTarkov m : mapTarkovBottom){
-            tabLayoutBottom.addTab(tabLayoutBottom.newTab().setText(m.getDisplayName()));
+            TabLayout.Tab tab = tabLayoutBottom.newTab().setText(m.getDisplayName());
+            tabLayoutBottom.addTab(tab);
         }
 
         deselectTabBottom();
@@ -151,6 +153,7 @@ public class MapsFragment extends Fragment {
 
             }
         });
+        showSelectedMap(tabLayoutTop.getTabAt(tabLayoutTop.getSelectedTabPosition()));
         return v;
     }
     private void deselectTabBottom(){

@@ -3,6 +3,7 @@
     <style name="Base.Theme.WikiTarkov" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryTheme">@color/dark_color</item>
     </style>
 
     <style name="Theme.WikiTarkov" parent="Base.Theme.WikiTarkov" />

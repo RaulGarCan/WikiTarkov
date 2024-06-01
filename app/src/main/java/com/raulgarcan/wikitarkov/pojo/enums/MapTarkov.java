@@ -1,14 +1,14 @@
 package com.raulgarcan.wikitarkov.pojo.enums;
 
 public enum MapTarkov {
-    FACTORY("","Factory"),
+    FACTORY("factory.jpg","Factory"),
     WOODS("woods.jpg","Woods"),
     CUSTOMS("customs.jpg","Customs"),
     INTERCHANGE("interchange.jpg","Interchange"),
     RESERVE("reserve.jpg","Reserve"),
-    SHORELINE("","Shoreline"),
-    THELAB("","The Lab"),
-    LIGHTHOUSE("","Lighthouse"),
+    SHORELINE("shoreline.jpg","Shoreline"),
+    THELAB("thelab.jpg","The Lab"),
+    LIGHTHOUSE("lighthouse.jpg","Lighthouse"),
     STREETS("streets.jpg","Streets"),
     GROUNDZERO("groundzero.jpg","Ground Zero");
     final String fileName;
