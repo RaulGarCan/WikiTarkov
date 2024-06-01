@@ -160,7 +160,7 @@ public class FirebaseHelper {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.d("LogIn Status", "Successful");
-                    saveCurrentUser(currentActivity);
+                    saveCurrentUser();
                     currentActivity.startActivity(new Intent(currentActivity, HomeActivity.class));
                 } else {
                     Toast.makeText(currentActivity, "User not found",Toast.LENGTH_SHORT).show();
@@ -172,13 +172,13 @@ public class FirebaseHelper {
     }
     public void logOut(Activity currentActivity){
         auth.signOut();
-        SharedPreferences preferences = currentActivity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences preferences = MainActivity.getPreferences();
         preferences.edit().remove("CurrentUser").apply();
         currentActivity.startActivity(new Intent(currentActivity, MainActivity.class));
         Toast.makeText(currentActivity, "Logged Out",Toast.LENGTH_SHORT).show();
     }
-    private void saveCurrentUser(Activity activity){
-        SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
+    private void saveCurrentUser(){
+        SharedPreferences preferences = MainActivity.getPreferences();
         preferences.edit().putString("CurrentUser",auth.getCurrentUser().getUid()).apply();
     }
     public void addAmmo(Ammo ammo, String ammoType, String caliber){

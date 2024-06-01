@@ -109,8 +109,8 @@ public class MapsFragment extends Fragment {
         }
 
         deselectTabBottom();
-        tabLayoutTop.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.black)));
-        tabLayoutBottom.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.black)));
+        tabLayoutTop.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        tabLayoutBottom.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
         tabLayoutTop.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

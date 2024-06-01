@@ -32,13 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin, btnSignup;
     private ProgressBar progressBar;
+    public static SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+        preferences = getPreferences(Context.MODE_PRIVATE);
         String currentUser = preferences.getString("CurrentUser","");
+        Log.d("CurrentUser",currentUser);
         if(!currentUser.isEmpty()){
             startActivity(new Intent(this, HomeActivity.class));
         }
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
             loadMaps(fileName);
         }
     }
+
+    public static SharedPreferences getPreferences() {
+        return preferences;
+    }
+
     private void loadMaps(String fileName){
         FirebaseHelper helper = new FirebaseHelper(this);
         FirebaseHelper.mapsImageHash.put(fileName,helper.readMap(fileName));
