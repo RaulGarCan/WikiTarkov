@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class MapsFragment extends Fragment {
-    private TabLayout tabLayoutTop, tabLayoutBottom;
+    private TabLayout tabLayoutTop, tabLayoutBottom, tabLayoutMid;
     private Drawable indicator;
     private PhotoView pvMap;
     private Activity activity;
@@ -88,15 +88,20 @@ public class MapsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_maps, container, false);
         tabLayoutTop = v.findViewById(R.id.tl_maps_top);
         tabLayoutBottom = v.findViewById(R.id.tl_maps_bottom);
+        tabLayoutMid = v.findViewById(R.id.tl_maps_mid);
         indicator = tabLayoutTop.getTabSelectedIndicator();
         pvMap = v.findViewById(R.id.pv_map);
 
         MapTarkov[] mapTarkovs = MapTarkov.values();
         ArrayList<MapTarkov> mapTarkovTop = new ArrayList<>();
         ArrayList<MapTarkov> mapTarkovBottom = new ArrayList<>();
+        ArrayList<MapTarkov> mapTarkovMid = new ArrayList<>();
         for(int i = 0; i<mapTarkovs.length; i++){
-            if(i%2==0){
+            int division = mapTarkovs.length/3;
+            if(i<division){
                 mapTarkovTop.add(mapTarkovs[i]);
+            } else if(i<division+division){
+                mapTarkovMid.add(mapTarkovs[i]);
             } else {
                 mapTarkovBottom.add(mapTarkovs[i]);
             }
@@ -105,7 +110,10 @@ public class MapsFragment extends Fragment {
             TabLayout.Tab tab = tabLayoutTop.newTab().setText(m.getDisplayName());
             tabLayoutTop.addTab(tab);
         }
-        for(MapTarkov m : mapTarkovBottom){
+        for(MapTarkov m : mapTarkovMid){
+            TabLayout.Tab tab = tabLayoutMid.newTab().setText(m.getDisplayName());
+            tabLayoutMid.addTab(tab);
+        }for(MapTarkov m : mapTarkovBottom){
             TabLayout.Tab tab = tabLayoutBottom.newTab().setText(m.getDisplayName());
             tabLayoutBottom.addTab(tab);
         }
@@ -113,11 +121,14 @@ public class MapsFragment extends Fragment {
         deselectTabBottom();
         tabLayoutTop.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
         tabLayoutBottom.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        tabLayoutMid.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
         tabLayoutTop.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab!=null) {
                     deselectTabBottom();
+                    deselectTabMid();
                     tabLayoutTop.setSelectedTabIndicator(indicator);
                     showSelectedMap(tab);
                 }
@@ -138,7 +149,29 @@ public class MapsFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab!=null) {
                     deselectTabTop();
+                    deselectTabMid();
                     tabLayoutBottom.setSelectedTabIndicator(indicator);
+                    showSelectedMap(tab);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        tabLayoutMid.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab!=null) {
+                    deselectTabBottom();
+                    deselectTabTop();
+                    tabLayoutMid.setSelectedTabIndicator(indicator);
                     showSelectedMap(tab);
                 }
             }
@@ -163,6 +196,10 @@ public class MapsFragment extends Fragment {
     private void deselectTabTop(){
         tabLayoutTop.selectTab(null);
         tabLayoutTop.setSelectedTabIndicator(null);
+    }
+    private void deselectTabMid(){
+        tabLayoutMid.selectTab(null);
+        tabLayoutMid.setSelectedTabIndicator(null);
     }
     private void showSelectedMap(TabLayout.Tab tab){
         Log.d("SelectedMap",tab.getText().toString());
