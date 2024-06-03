@@ -119,6 +119,7 @@ public class MapsFragment extends Fragment {
         }
 
         deselectTabBottom();
+        deselectTabMid();
         tabLayoutTop.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
         tabLayoutBottom.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
         tabLayoutMid.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
